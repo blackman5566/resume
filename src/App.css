@@ -1,0 +1,243 @@
+/*App.css 是專門給 App.jsx 這個元件使用的樣式檔案，屬於「單一元件的樣式」。*/
+#root {
+  /* 定義主題變數（light / dark 顏色配置） */
+  --bg-light: #f7f8fa;
+  --bg-dark: #23272f;
+  --card-light: #fff;
+  --card-dark: #242730;
+  --text-light: #222;
+  --text-dark: #e4e4e4;
+  --accent: #4a90e2;        /* 主色：藍色強調色 */
+  --border: #eee;
+  --border-dark: #333843;
+}
+
+body {
+  /* 頁面背景與文字基本樣式 */
+  background: var(--bg-light);
+  color: var(--text-light);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, "PingFang TC", "Microsoft JhengHei", sans-serif;
+  transition: background 0.3s, color 0.3s;
+  min-height: 100vh;
+}
+
+body.dark {
+  /* 深色模式下的背景與文字 */
+  background: var(--bg-dark);
+  color: var(--text-dark);
+}
+
+.top-bar {
+  /* 上方標題區塊 */
+  background: none;
+  padding: 30px 0 12px 0;
+  text-align: center;
+}
+
+.top-bar .container {
+  /* 水平置中姓名與附註 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+}
+
+.top-bar h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: 2px;
+}
+
+.top-bar .sub {
+  /* 副標註：Allen Hsu */
+  font-size: 1rem;
+  font-weight: 400;
+  color: #888;
+  margin-left: 5px;
+}
+
+.subtitle {
+  /* 下方職稱 */
+  color: #888;
+  font-size: 1.12rem;
+  margin: 8px 0 0 0;
+  text-align: center;
+}
+
+.top-bar .theme-toggle {
+  /* 主題切換按鈕樣式 */
+  background: none;
+  border: none;
+  font-size: 1.0rem;
+  cursor: pointer;
+  margin-left: 18px;
+  transition: transform 0.18s;
+}
+.top-bar .theme-toggle:hover {
+  transform: scale(1.15);
+}
+
+.top-bar .links {
+  /* Email、GitHub、語言切換等連結列 */
+  margin-top: 12px;
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+}
+
+.top-bar .links a {
+  /* 連結樣式 */
+  color: inherit;
+  text-decoration: none;
+  font-size: 1rem;
+  background: none;
+  border-radius: 4px;
+  padding: 2px 8px;
+  transition: background 0.13s, color 0.13s;
+}
+
+.top-bar .links a:hover {
+  /* 滑鼠滑過時：變色與底色 */
+  color: var(--accent);
+  background: #e8f2ff;
+}
+body.dark .top-bar .links a:hover {
+  background: #25344b;
+}
+
+.main-content {
+  /* 主要內容容器：最大寬度與內距 */
+  max-width: 740px;
+  margin: 28px auto 0 auto;
+  padding: 0 16px 64px 16px;
+}
+
+.section {
+  /* 各段落區塊外距 */
+  margin-bottom: 36px;
+}
+
+.card {
+  /* 卡片樣式：白底＋圓角＋陰影 */
+  background: var(--card-light);
+  border-radius: 13px;
+  box-shadow: 0 4px 14px 0 rgba(50,60,80,0.07);
+  border: 1px solid var(--border);
+  padding: 32px 24px 22px 24px;
+  margin-bottom: 24px;
+  transition: background 0.3s, box-shadow 0.2s, border 0.25s;
+}
+body.dark .card {
+  background: var(--card-dark);
+  border: 1px solid var(--border-dark);
+  box-shadow: 0 4px 14px 0 rgba(0,0,0,0.16);
+}
+
+.section h2 {
+  /* 各段落的標題文字 */
+  font-size: 1.3rem;
+  margin-bottom: 14px;
+  letter-spacing: 1px;
+}
+
+.item h3 {
+  /* 工作職稱與公司名稱 */
+  margin: 0 0 5px 0;
+  font-size: 1.07rem;
+  font-weight: 600;
+}
+
+.period {
+  /* 年份區塊樣式 */
+  font-size: 0.95rem;
+  color: #888;
+  margin-bottom: 6px;
+  display: inline-block;
+}
+
+ul {
+  /* 清單樣式（包含工作內容與技能） */
+  margin: 14px 0 0 24px;
+  padding: 0;
+  font-size: 1.02rem;
+  line-height: 1.7;
+}
+
+ul.skills-grid {
+  /* 技能清單為格狀排列 */
+  margin-left: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 20px;
+  padding: 0;
+}
+
+.skills-grid li {
+  /* 單一技能樣式 */
+  background: #f1f4fa;
+  padding: 5px 14px;
+  border-radius: 5px;
+  list-style: none;
+  font-size: 0.99rem;
+}
+body.dark .skills-grid li {
+  background: #232b38;
+}
+
+.project-achievements {
+  /* 專案成就區塊 */
+  margin-top: 18px;
+  margin-bottom: 6px;
+}
+
+.project-achievements > strong {
+  /* 專案名稱 */
+  font-size: 1.06rem;
+  color: var(--accent);
+  font-weight: 500;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.sub-list {
+  /* 專案詳細清單 */
+  margin-left: 24px;
+  font-size: 0.98rem;
+  color: #333;
+}
+body.dark .sub-list {
+  color: #bbb;
+}
+
+.project-link {
+  /* 專案連結樣式 */
+  color: #70b7fa;     /* 淺藍色 */
+  text-decoration: underline;
+  font-weight: 500;
+  transition: color 0.16s;
+}
+.project-link:hover {
+  color: #4a90e2;     /* 深藍色 */
+  text-decoration: underline solid;
+}
+
+/* 📱 RWD 響應式樣式 */
+@media (max-width: 520px) {
+  .main-content {
+    padding: 0 3vw 32px 3vw;
+  }
+
+  .card {
+    padding: 16px 6vw 14px 6vw;
+  }
+
+  .section h2 {
+    font-size: 1.04rem;
+  }
+
+  .item h3 {
+    font-size: 0.98rem;
+  }
+}
+
