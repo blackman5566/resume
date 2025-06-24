@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import ResumeTW from './components/resume-tw.jsx';
-import ResumeEN from './components/resume-en.jsx';
+import resumeData from './data/resumeData';
+import Resume from './components/Resume';
 import './App.css'
 
 //就是你整個 React 專案的「畫面進入點」、「主組件（root component）」，所有畫面元件會從這裡開始組合與渲染。
@@ -31,12 +31,13 @@ function App() {
     localStorage.setItem('language', language);
   }, [language]);
 
+// ★★動態設定 title★★
+  useEffect(() => {
+    document.title = language === 'tw' ? '許佳豪 • 個人簡介' : 'HSU CHIA-HAO • Personal Profile English Version';
+  }, [language]);
 
   const toggleTheme = () => {
     setTheme(prev => (prev === 'dark' ? 'light' : 'dark'));
-    document.body.classList.remove('light', 'dark');
-    document.body.classList.add(theme);
-    localStorage.setItem('theme', theme);
   };
 
   const switchLanguage = () => {
@@ -45,13 +46,13 @@ function App() {
 
 
   return (
-    <>
-      {language === 'tw' ? (
-        <ResumeTW switchLanguage={switchLanguage} toggleTheme={toggleTheme} theme={theme}/>
-      ) : (
-        <ResumeEN switchLanguage={switchLanguage} toggleTheme={toggleTheme} theme={theme}/>
-      )}
-    </>
+    <Resume
+      data={resumeData[language]}
+      switchLanguage={switchLanguage}
+      toggleTheme={toggleTheme}
+      theme={theme}
+      language={language}
+    />
   );
 }
 
