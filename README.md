@@ -1,12 +1,15 @@
-# React + Vite
+# Allen Hsu • Interactive Resume
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+[![GitHub Pages](https://img.shields.io/badge/Online%20Demo-Visit-blue)](https://blackman5566.github.io/resume/)
 
-Currently, two official plugins are available:
+一份**互動式自我介紹履歷**，基於 React + Vite 製作。支援**深色/淺色主題切換**、**中英文切換**、**動畫進場效果**，並可直接部署到 GitHub Pages。
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## 技術棧 / Framework
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- ⚛️ [React](https://react.dev/) 18
+- ⚡️ [Vite](https://vitejs.dev/)
+- 🎨 CSS3 + 自訂 RWD
+- 💡 [Framer Motion](https://www.framer.com/motion/)（動畫效果）
+- 🌐 GitHub Pages 自動部署
