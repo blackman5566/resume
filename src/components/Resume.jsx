@@ -1,4 +1,19 @@
 import React from 'react';
+import { motion } from "framer-motion";
+
+// 動畫參數可以自己微調
+const sectionVariants = {
+  hidden: { opacity: 0, y: 40 },
+  visible: (i) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      delay: i * 0.18, // 每個區塊依序進場
+      duration: 0.65,
+      ease: [0.16, 1, 0.3, 1],
+    },
+  }),
+};
 
 /**
  * Resume 履歷主組件
@@ -9,6 +24,71 @@ import React from 'react';
  * @param {string} language         // 語系狀態 ('en'/'tw')
  */
 function Resume({ data, switchLanguage, toggleTheme, theme, language }) {
+
+    // Section 順序固定
+  const sections = [
+    { id: "education", content: (
+      <section id="education" className="section card">
+        <h2>{data.educationTitle || (language === 'tw' ? '學歷' : 'Education')}</h2>
+        <ul>
+          {data.education.map((item, i) => <li key={i}>{item}</li>)}
+        </ul>
+      </section>
+    )},
+    { id: "summary", content: (
+      <section id="summary" className="section card">
+        <h2>{data.summaryTitle || (language === 'tw' ? '個人 Summary' : 'Personal Summary')}</h2>
+        <p>{data.summary}</p>
+      </section>
+    )},
+    { id: "experience", content: (
+      <section id="experience" className="section">
+        <h2>{data.experienceTitle || (language === 'tw' ? '工作經歷' : 'Work Experience')}</h2>
+        {data.experiences.map((job, idx) => (
+          <div className="item card" key={job.company + idx}>
+            <h3>{job.company}</h3>
+            <span className="period">{job.period}</span>
+            <ul>
+              {job.details.map((desc, i) => <li key={i}>{desc}</li>)}
+            </ul>
+            {/* 專案成就 */}
+            {job.projects && job.projects.map((proj, pi) => (
+              <div className="project-achievements" key={proj.name + pi}>
+                <strong>
+                  {proj.link
+                    ? <a href={proj.link} target="_blank" rel="noopener noreferrer" className="project-link">{proj.name}</a>
+                    : proj.name}
+                </strong>
+                <ul className="sub-list">
+                  {Array.isArray(proj.achievements)
+                    ? proj.achievements.map((a, ai) =>
+                        typeof a === 'string'
+                          ? <li key={ai}>{a}</li>
+                          : (
+                            <li key={ai}>
+                              <a href={a.link} target="_blank" rel="noopener noreferrer">{a.name}</a>｜{a.desc}
+                            </li>
+                          )
+                      )
+                    : null
+                  }
+                </ul>
+              </div>
+            ))}
+          </div>
+        ))}
+      </section>
+    )},
+    { id: "skills", content: (
+      <section id="skills" className="section card">
+        <h2>{data.skillsTitle || (language === 'tw' ? '工作技能' : 'Skills')}</h2>
+        <ul className="skills-grid">
+          {data.skills.map(skill => <li key={skill}>{skill}</li>)}
+        </ul>
+      </section>
+    )},
+  ];
+
   return (
     <div className={theme}>
       {/* -------- 頁首區 -------- */}
@@ -45,70 +125,18 @@ function Resume({ data, switchLanguage, toggleTheme, theme, language }) {
 
       {/* -------- 主要內容區 -------- */}
       <main className="main-content">
-        {/* -------- 學歷區塊 -------- */}
-        <section id="education" className="section card">
-          <h2>{data.educationTitle || (theme === 'tw' ? '學歷' : 'Education')}</h2>
-          <ul>
-            {data.education.map((item, i) => (
-              <li key={i}>{item}</li>
-            ))}
-          </ul>
-        </section>
-
-        {/* -------- Summary 自我介紹區塊 -------- */}
-        <section id="summary" className="section card">
-          <h2>{data.summaryTitle || (theme === 'tw' ? '個人 Summary' : 'Personal Summary')}</h2>
-          <p>{data.summary}</p>
-        </section>
-
-        {/* -------- 經歷（公司/專案/成就） -------- */}
-        <section id="experience" className="section">
-          <h2>{data.experienceTitle || (theme === 'tw' ? '工作經歷' : 'Work Experience')}</h2>
-          {data.experiences.map((job, idx) => (
-            <div className="item card" key={job.company + idx}>
-              <h3>{job.company}</h3>
-              <span className="period">{job.period}</span>
-              {/* 主要工作內容 */}
-              <ul>
-                {job.details.map((desc, i) => <li key={i}>{desc}</li>)}
-              </ul>
-              {/* 如果有專案/成就，依序顯示 */}
-              {job.projects && job.projects.map((proj, pi) => (
-                <div className="project-achievements" key={proj.name + pi}>
-                  <strong>
-                    {/* 若有超連結，加 a 標籤；否則純文字 */}
-                    {proj.link
-                      ? <a href={proj.link} target="_blank" rel="noopener noreferrer" className="project-link">{proj.name}</a>
-                      : proj.name}
-                  </strong>
-                  <ul className="sub-list">
-                    {Array.isArray(proj.achievements)
-                      ? proj.achievements.map((a, ai) =>
-                          typeof a === 'string'
-                            ? <li key={ai}>{a}</li>
-                            : (
-                              <li key={ai}>
-                                {/* 如果是自由接案／協作專案，顯示名稱＋描述 */}
-                                <a href={a.link} target="_blank" rel="noopener noreferrer">{a.name}</a>｜{a.desc}
-                              </li>
-                            )
-                        )
-                      : null
-                    }
-                  </ul>
-                </div>
-              ))}
-            </div>
-          ))}
-        </section>
-
-        {/* -------- 技能區塊 -------- */}
-        <section id="skills" className="section card">
-          <h2>{data.skillsTitle || (theme === 'tw' ? '工作技能' : 'Skills')}</h2>
-          <ul className="skills-grid">
-            {data.skills.map(skill => <li key={skill}>{skill}</li>)}
-          </ul>
-        </section>
+        {sections.map((section, i) => (
+          <motion.div
+            key={section.id + '-' + language + '-' + theme}
+            custom={i}
+            variants={sectionVariants}
+            initial="hidden"
+            animate="visible"
+            exit="hidden"
+          >
+            {section.content}
+          </motion.div>
+        ))}
       </main>
     </div>
   );
