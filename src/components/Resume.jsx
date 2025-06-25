@@ -90,7 +90,7 @@ function Resume({ data, switchLanguage, toggleTheme, theme, language }) {
   ];
 
   return (
-    <div className={theme}>
+    <body className={theme}>
       {/* -------- 頁首區 -------- */}
       <header className="top-bar">
         <div className="container">
@@ -138,7 +138,7 @@ function Resume({ data, switchLanguage, toggleTheme, theme, language }) {
           </motion.div>
         ))}
       </main>
-    </div>
+    </body>
   );
 }
 

@@ -14,7 +14,7 @@ import './App.css'
 // → 你自己寫的主畫面 UI 進入點
 function App() {
   // 主題狀態
-  const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'dark');
+  const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'light');
 
   // 語系狀態
   const [language, setLanguage] = useState(() => localStorage.getItem('language') || 'tw'); // 'tw' or 'en'
